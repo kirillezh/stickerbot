@@ -10,7 +10,7 @@
         "/setlanguage": "Вибір мови | Choose language",
         "/cancel": "Скасовує дію | Cancel action"
     },
-    "version": "2.0",
+    "version": "2.0.1",
     "projectName": "stickerbot",
     "GitHub": "https://github.com/kirillezh/stickerua"
 }
