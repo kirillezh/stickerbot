@@ -1,1 +1,40 @@
+# Virtual environment
+venv/
+env/
+.env/
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distributions and builds
+dist/
+build/
+*.egg-info/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Local settings
 .env
+.env.local
+
+# Logs
+*.log
+
+# Temporary files
+.DS_Store
+Thumbs.db 
+
+
+# Old files
+*.old
+
+# Database
+bot_data.db
+*.db
