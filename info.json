@@ -1,16 +1,17 @@
 {
     "name": "stickerua | by @ezh_off",
-    "description": "Бот для створення наліпок / Bot for creating stickers",
+    "description": "Бот для створення наліпок | Bot for creating stickers",
     "link": "https://t.me/stickerua_ezh_bot",
     "commands": {
         "/start": "Починаємо... | Start...",
+        "/info": "Інфо про бота | Info about bot",
         "/mypacks": "Список моїх паків | My packs",
         "/newpack": "Створює новий паку наліпок | Create a new sticker pack",
         "/newvideopack": "Створює новий відео-пак наліпок | Create a new video sticker pack ",
         "/setlanguage": "Вибір мови | Choose language",
         "/cancel": "Скасовує дію | Cancel action"
     },
-    "version": "2.0.1",
+    "version": "2.1.0",
     "projectName": "stickerbot",
     "GitHub": "https://github.com/kirillezh/stickerua"
 }

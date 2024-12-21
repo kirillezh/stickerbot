@@ -1,13 +1,17 @@
-"""Localization file for English language"""
+"""
+This module contains English language localization messages for the Telegram bot.
+All user-facing text messages are stored in the MESSAGES dictionary.
+"""
+
 MESSAGES = {
     "start_message": (
         "Hello! \nI'm a small Ukrainian bot that helps users create their own stickers) "
         "\nI hope you like it!)\n"
+        "/info - Info about bot\n"
+        "/mypacks - My sticker packs\n"
         "/newpack – Create a new sticker pack\n"
-        "/addsticker - Add a sticker to an existing pack\n"
-        "/convertvideo - Convert video\n"
         "/newvideopack - Create a video sticker pack\n"
-        "/addvideosticker - Add a video sticker to an existing pack\n"
+        "/setlanguage - Choose language\n"
         "/cancel - Cancel action"
     ),
     "cancel_message": "Cancelled(",
@@ -21,6 +25,7 @@ MESSAGES = {
     "name_too_long": "The name must be no more than 15 characters",
     "pack_exists": "Such a pack already exists, choose another name",
     "send_photo": "Send a photo for the first sticker",
+    "send_next_photo": "Send a photo for the sticker",
     "send_emoji": "Now send an emoji for this sticker",
     "error_processing_photo": "An error occurred while processing the photo",
     "add_sticker_prompt": (
@@ -37,6 +42,7 @@ MESSAGES = {
     "video_convert_error": "Error converting video",
     "video_processing_error": "An error occurred while processing the video",
     "choose_convert_type": "Choose the conversion type:",
+    "choose_video_type": "Choose the video sticker type:",
     "send_video_for_conversion": "Send a video for conversion",
     "send_video_note_for_conversion": "Send a video note for conversion",
     "video_sticker_pack_full": (
@@ -50,6 +56,13 @@ MESSAGES = {
     "emoji_error": "Please send a valid emoji",
     "sticker_creation_error": "An error occurred while creating/adding the sticker",
     "selected_pack": "Selected pack <a href='https://t.me/addstickers/{sticker_set_name}'>{sticker_set_title}</a>\n{send_photo}",
+    "new_pack_created": (
+        "Created new {pack_type}sticker pack "
+        "<a href='https://t.me/addstickers/{name}'>"
+        "{title}</a>"
+    ),
+    "video_pack": "video-",
+    "static_pack": "",
     "convert_to_round": "🔄 Convert to round",
     "convert_to_video": "🎬 Convert to regular video",
     "video_round": "🔄 Video round",
@@ -68,32 +81,32 @@ MESSAGES = {
     "next_page": "Next ➡️",
     "prev_page": "⬅️ Previous",
     "pack_actions": "Actions with pack '{title}':",
-    "rename_pack": "✏️ Rename",
+    "rename_pack": "✏️ Rename pack ✏️",
     "delete_pack": "❌ Delete pack ❌",
-    "add_sticker_to_pack": "➕ Add sticker",
-    "delete_sticker": "🗑 Delete sticker",
+    "delete_pack_button": "⚠️ Delete this pack ⚠️",
+    "add_sticker_to_pack": "➕ Add sticker ➕",
+    "delete_sticker": "🗑 Delete sticker 🗑",
     "back_to_packs": "↩️ Back to packs",
-    "confirm_delete": "Are you sure you want to delete pack '{title}'?\n\nThis action cannot be undone.",
-    "confirm_yes": "✅ Yes, delete",
-    "confirm_no": "❌ No, cancel",
+    "back_to_pack": "↩️ Back to pack",
+    "close_actions": "🔒 Close 🔒",
+    "closed_actions": "🔒 Closed 🔒",
     "pack_deleted": "Pack successfully deleted",
     "enter_new_title": "Enter new title for the pack:",
     "pack_renamed": "Pack successfully renamed",
     "select_sticker": "Select sticker to delete:",
     "sticker_deleted": "Sticker successfully deleted",
-    "confirm_delete_pack": "Are you sure you want to delete pack '{title}'?\n\nThis action cannot be undone.",
-    "confirm_delete_yes": "🗑 Delete pack",
-    "confirm_delete_no": "❌ Cancel",
-    "pack_full_name": "<a href='https://t.me/addstickers/{name}'>{title}</a> | by @{username}",
     "rename_error": "Error renaming pack. Please try again.",
+    "pack_full_name": "<a href='https://t.me/addstickers/{name}'>{title}</a> | by @{username}",
     "select_sticker_to_delete": "Select sticker to delete from pack {title}:",
     "sticker_delete_error": "Error deleting sticker. Please try again.",
     "send_sticker_to_delete": "Send the sticker you want to delete, or choose from the list below:",
     "wrong_sticker": "This sticker doesn't belong to this pack. Try another one or choose from the list.",
-    "new_pack_created": (
-        "Created new {pack_type}sticker pack "
-        "t.me/addstickers/{name}_by_{username}"
+    "confirm_delete_pack": (
+        "⚠️ Are you absolutely sure?\n\n"
+        "This will permanently delete the pack '{title}' "
+        "and all its stickers. This action CANNOT be undone."
     ),
-    "video_pack": "video-",
-    "static_pack": "",
-} 
+    "confirm_delete_yes": "🗑 Yes, delete this pack",
+    "confirm_delete_no": "❌ No, keep it",
+    "cant_delete_last_sticker": "Cannot delete the last sticker in the pack! A pack must contain at least two sticker.",
+}

@@ -26,6 +26,7 @@ build/
 
 # Logs
 *.log
+logs/
 
 # Temporary files
 .DS_Store
@@ -38,3 +39,7 @@ Thumbs.db
 # Database
 bot_data.db
 *.db
+
+# Video files
+*.webm
+*.mp4

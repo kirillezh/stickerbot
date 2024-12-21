@@ -2,27 +2,34 @@
 This module contains English/Ukrainian language localization messages for the Telegram bot.
 All user-facing text messages are stored in the BOT_COMMANDS dictionary.
 """
+COMPONENTS_HTML = {
+    "link": {
+        "simple": "<a href='{link}'>{text}</a>",
+        "sticker_set": (
+            "<a href='https://t.me/addstickers/{name}'>"
+            "{title}</a>"
+        )
+    }
+}
+
 BOT_COMMANDS = {
     "ua": {
         "start": "Старт",
+        "info": "Інфо про бота",
         "mypacks": "Мої паки наліпок",
         "newpack": "Створити новий пак наліпок",
-        "addsticker": "Додати наліпку до існуючого паку",
-        "convertvideo": "Конвертувати відео",
         "newvideopack": "Створити відео-стікерпак",
-        "addvideosticker": "Додати відео-стікер до паку",
         "cancel": "Скасувати поточну дію",
         "setlanguage": "Вибрати мову"
     },
     "en": {
         "start": "Start",
+        "info": "Info about bot",
         "mypacks": "My sticker packs",
         "newpack": "Create new sticker pack",
-        "addsticker": "Add sticker to existing pack",
-        "convertvideo": "Convert video",
         "newvideopack": "Create video sticker pack",
-        "addvideosticker": "Add video sticker to pack",
         "cancel": "Cancel current action",
         "setlanguage": "Choose language"
     }
-} 
+
+}

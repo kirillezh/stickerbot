@@ -22,4 +22,4 @@ class ImageProcessor:
             resized_image.save(file)
         except Exception as e:
             os.remove(file)
-            logging.warning('Error at %s', 'division', exc_info=e) 
+            logging.warning('Error at %s', 'division', exc_info=e)

@@ -15,4 +15,4 @@ async def get_messages(state=None, user_id=None):
         data = await state.get_data()
         language = data.get("language", "ua")
 
-    return EN_MESSAGES if language == "en" else UA_MESSAGES 
+    return EN_MESSAGES if language == "en" else UA_MESSAGES

@@ -10,6 +10,7 @@ from aiogram.types import ReplyKeyboardRemove
 from src.keyboards.reply import Keyboards
 from src.states.forms import Form
 from src.utils.utils import get_messages
+from src.utils.message_utils import DEFAULT_HTML_OPTIONS
 from src.database.db import Database
 
 router = Router()
@@ -20,6 +21,12 @@ async def start(message: Message):
     """Handle the /start command"""
     messages = await get_messages(user_id=message.from_user.id)
     await message.answer(messages["start_message"])
+
+@router.message(Command("info"))
+async def info(message: Message):
+    """Handle the /info command"""
+    with open("info.json", "r", encoding="utf-8") as f:
+        await message.answer(f.read(), **DEFAULT_HTML_OPTIONS)
 
 @router.message(Command("cancel"))
 async def cancel(message: Message, state: FSMContext):
@@ -42,7 +49,7 @@ async def complete(message: Message, state: FSMContext):
                 sticker_set_name=sticker_set.name,
                 sticker_set_title=sticker_set.title
             ),
-            parse_mode="HTML"
+            **DEFAULT_HTML_OPTIONS
         )
         await state.clear()
     except Exception:

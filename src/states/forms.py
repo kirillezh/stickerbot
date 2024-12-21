@@ -5,7 +5,6 @@ from aiogram.fsm.state import State, StatesGroup
 
 class Form(StatesGroup):
     """Class for managing the state of the bot"""
-    name = State()
     media_add = State()
     title_pack = State()
     name_pack = State()
@@ -18,6 +17,5 @@ class Form(StatesGroup):
     choose_convert_type = State()
     emoji_select = State()
     video_type_select = State()
-    video_pack_name = State()
     language_select = State()
-    rename_pack = State() 
+    rename_pack = State()

@@ -1,17 +1,16 @@
-FROM python:3.10-slim
+FROM python:3.13.1-alpine
 
-#install ffmpeg
-RUN apt-get -y update
-RUN apt-get install -y ffmpeg
+# Install ffmpeg
+RUN apk add --no-cache ffmpeg
 
-COPY . .
+COPY requirements.txt .
 RUN pip install --upgrade pip; \
     pip install -r requirements.txt
 
 ENV DISPLAY=:99
-ENV APP_HOME /program 
+ENV APP_HOME=/program
 
-#set workspace
+# Set workspace
 WORKDIR ${APP_HOME}
 
 ENTRYPOINT ["python3"]

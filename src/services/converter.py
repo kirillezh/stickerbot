@@ -31,12 +31,16 @@ class VideoConverter:
         """Convert video to video sticker format"""
         try:
             subprocess.run([
-                'ffmpeg','-hide_banner', '-loglevel', 'error', '-y', '-i', file, '-r', '30', '-t', '2.99',           
-                 '-an', '-c:v', 'libvpx-vp9','-pix_fmt', 'yuva420p' , '-vf', 'scale=512:512:force_original_aspect_ratio=decrease', '-b:v', '400K', file.replace(".mp4", ".webm")],
+                'ffmpeg','-hide_banner', '-loglevel', 'error', '-y', 
+                '-i', file, '-r', '30', '-t', '2.99',
+                 '-an', '-c:v', 'libvpx-vp9','-pix_fmt', 'yuva420p' , 
+                 '-vf', 'scale=512:512:force_original_aspect_ratio=decrease', 
+                 '-b:v', '400K', file.replace(".mp4", ".webm")],
                 check=True)
             os.remove(file)
             return True
         except Exception as e:
             os.remove(file)
             logging.warning('Error at %s', 'division', exc_info=e)
-            return False 
+            return False
+

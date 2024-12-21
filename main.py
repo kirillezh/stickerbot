@@ -4,6 +4,7 @@ This module initializes and runs the Telegram bot using aiogram.
 
 import asyncio
 import logging
+import os
 from dotenv import load_dotenv
 from src.bot import BotInstance
 from src.handlers.common import router as common_router
@@ -17,7 +18,10 @@ async def main():
     Main function for running the bot.
     """
     load_dotenv()
-    logging.basicConfig(level=logging.INFO)
+    # Set up logging based on environment variable
+    logging_level = os.getenv('LOGGING_LEVEL', 'INFO').upper()
+    logging.basicConfig(level=getattr(logging, logging_level))
+
     bot_instance = BotInstance()
     # Bot commands setup
     await bot_instance.setup_commands()

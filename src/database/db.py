@@ -1,13 +1,17 @@
+"""
+This module contains the Database class for managing the database operations.
+"""
 import sqlite3
-from typing import List
 import logging
 
 class Database:
+    """Class for database operations"""
     def __init__(self):
         self.conn = sqlite3.connect('bot_data.db')
         self.create_tables()
 
     def create_tables(self):
+        """Create tables if they don't exist"""
         cursor = self.conn.cursor()
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS user_settings (
@@ -15,7 +19,7 @@ class Database:
             language TEXT DEFAULT 'ua'
         )
         ''')
-        
+
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS user_packs (
             pack_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,21 +35,30 @@ class Database:
         self.conn.commit()
 
     async def get_user_language(self, user_id: int) -> str:
+        """Get user language"""
         cursor = self.conn.cursor()
         cursor.execute('SELECT language FROM user_settings WHERE user_id = ?', (user_id,))
         result = cursor.fetchone()
         return result[0] if result else 'ua'
 
     async def set_user_language(self, user_id: int, language: str):
+        """Set user language"""
         cursor = self.conn.cursor()
         cursor.execute('''
-        INSERT INTO user_settings (user_id, language) 
+        INSERT INTO user_settings (user_id, language)
         VALUES (?, ?)
         ON CONFLICT(user_id) DO UPDATE SET language = ?
         ''', (user_id, language, language))
-        self.conn.commit() 
+        self.conn.commit()
 
-    async def create_pack(self, user_id: int, pack_name: str, pack_title: str, pack_type: str) -> bool:
+    async def create_pack(
+            self,
+            user_id: int,
+            pack_name: str,
+            pack_title: str,
+            pack_type: str
+    ) -> bool:
+        """Create pack"""
         cursor = self.conn.cursor()
         try:
             cursor.execute('''
@@ -58,6 +71,7 @@ class Database:
             return False
 
     async def get_user_packs(self, user_id: int) -> list:
+        """Get user packs"""
         cursor = self.conn.cursor()
         cursor.execute('SELECT * FROM user_packs WHERE user_id = ?', (user_id,))
         return cursor.fetchall()
@@ -68,42 +82,24 @@ class Database:
         """
         cursor = self.conn.cursor()
         try:
-            
+
             cursor.execute('''
-                SELECT pack_id, user_id, pack_name, pack_title, pack_type, created_at 
-                FROM user_packs 
+                SELECT pack_id, user_id, pack_name, pack_title, pack_type, created_at
+                FROM user_packs
                 WHERE user_id = ? AND pack_name = ?
             ''', (user_id, pack_name))
-            
+
             result = cursor.fetchone()
             return result
         except sqlite3.Error as e:
-            logging.error(f"Database error: {e}")
+            logging.error("Database error: %s", str(e))
             return None
 
-    async def get_user_packs_count(self, user_id: int) -> int:
-        cursor = self.conn.cursor()
-        cursor.execute('SELECT COUNT(*) FROM user_packs WHERE user_id = ?', (user_id,))
-        return cursor.fetchone()[0]
-
-    async def get_user_packs_paginated(self, user_id: int, offset: int, limit: int = 10) -> list:
-        """Get paginated packs for user
-        Returns list of tuples: [(pack_id, user_id, pack_name, pack_title, pack_type, created_at), ...]
-        """
-        cursor = self.conn.cursor()
-        cursor.execute('''
-            SELECT pack_id, user_id, pack_name, pack_title, pack_type, created_at
-            FROM user_packs 
-            WHERE user_id = ? 
-            ORDER BY created_at DESC 
-            LIMIT ? OFFSET ?
-        ''', (user_id, limit, offset))
-        return cursor.fetchall()
-
     async def delete_pack(self, user_id: int, pack_name: str) -> bool:
+        """Delete pack"""
         cursor = self.conn.cursor()
         try:
-            cursor.execute('DELETE FROM user_packs WHERE user_id = ? AND pack_name = ?', 
+            cursor.execute('DELETE FROM user_packs WHERE user_id = ? AND pack_name = ?',
                           (user_id, pack_name))
             self.conn.commit()
             return cursor.rowcount > 0
@@ -111,11 +107,12 @@ class Database:
             return False
 
     async def rename_pack(self, user_id: int, pack_name: str, new_title: str) -> bool:
+        """Rename pack"""
         cursor = self.conn.cursor()
         try:
             cursor.execute('''
-                UPDATE user_packs 
-                SET pack_title = ? 
+                UPDATE user_packs
+                SET pack_title = ?
                 WHERE user_id = ? AND pack_name = ?
             ''', (new_title, user_id, pack_name))
             self.conn.commit()
