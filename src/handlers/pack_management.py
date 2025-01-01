@@ -310,7 +310,7 @@ async def process_rename_pack(message: Message, state: FSMContext):
     try:
         # Update title in Telegram
         me = await message.bot.get_me()
-        new_pack_title = f"{message.text} | by {me.username}"
+        new_pack_title = f"{message.text} | by @{me.username}"
         await message.bot.set_sticker_set_title(
             name=pack_name,
             title=new_pack_title

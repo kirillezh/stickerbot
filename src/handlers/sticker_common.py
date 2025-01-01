@@ -35,7 +35,7 @@ async def process_emoji(message: Message, state: FSMContext):
         # For new pack
         if is_video_pack or 'title_pack' in data:
             me = await message.bot.get_me()  # Get bot info
-            pack_title = f"{data.get('title_videopack') or data.get('title_pack')} | by {me.username}"  # Update pack_title
+            pack_title = f"{data.get('title_videopack') or data.get('title_pack')} | by @{me.username}"  # Update pack_title
 
             await message.bot.create_new_sticker_set(
                 user_id=message.from_user.id,
