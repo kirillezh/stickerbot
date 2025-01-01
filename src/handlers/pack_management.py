@@ -309,13 +309,15 @@ async def process_rename_pack(message: Message, state: FSMContext):
 
     try:
         # Update title in Telegram
+        me = await message.bot.get_me()
+        new_pack_title = f"{message.text} | by {me.username}"
         await message.bot.set_sticker_set_title(
             name=pack_name,
-            title=message.text
+            title=new_pack_title
         )
 
         # Update title in database
-        success = await db.rename_pack(message.from_user.id, pack_name, message.text)
+        success = await db.rename_pack(message.from_user.id, pack_name, new_pack_title)
         if not success:
             raise Exception("Failed to update database")
 

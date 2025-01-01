@@ -10,7 +10,7 @@ from src.utils.utils import get_messages
 from src.utils.message_utils import DEFAULT_HTML_OPTIONS
 from src.database.db import Database
 from src.handlers.pack_management import show_pack_actions
-
+from src.utils.sanitize_pack_name import sanitize_pack_name
 router = Router()
 db = Database()
 
@@ -34,10 +34,13 @@ async def process_emoji(message: Message, state: FSMContext):
 
         # For new pack
         if is_video_pack or 'title_pack' in data:
+            me = await message.bot.get_me()  # Get bot info
+            pack_title = f"{data.get('title_videopack') or data.get('title_pack')} | by {me.username}"  # Update pack_title
+
             await message.bot.create_new_sticker_set(
                 user_id=message.from_user.id,
-                name=data['name'],
-                title=data.get('title_videopack') or data.get('title_pack'),
+                name=sanitize_pack_name(data['name']),
+                title=pack_title,
                 stickers=[
                     InputSticker(
                         sticker=FSInputFile(media_path),
@@ -49,12 +52,11 @@ async def process_emoji(message: Message, state: FSMContext):
             )
 
             # Add pack to database after successful creation
-            pack_title = data.get('title_videopack') or data.get('title_pack')
             pack_type = 'video' if is_video_pack else 'static'
 
             await db.create_pack(
                 user_id=message.from_user.id,
-                pack_name=data['name'],
+                pack_name=sanitize_pack_name(data['name']),
                 pack_title=pack_title,
                 pack_type=pack_type
             )
@@ -63,7 +65,7 @@ async def process_emoji(message: Message, state: FSMContext):
             await message.reply(
                 messages["new_pack_created"].format(
                     pack_type=messages["video_pack"] if is_video_pack else messages["static_pack"],
-                    name=data['name'],
+                    name=sanitize_pack_name(data['name']),
                     title=pack_title
                 ),
                 **DEFAULT_HTML_OPTIONS
